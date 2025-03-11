@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>翻译</title>
+  <link rel="stylesheet" href="css/translation.css">
+</head>
+<body>
+  <div class="translation-container">
+    <div class="header">
+      <span class="title">TranslateX</span>
+      <div class="controls">
+        <button id="pinButton" class="pin-button" title="固定窗口">📌</button>
+        <button id="closeButton" class="close-button" title="关闭">✕</button>
+      </div>
+    </div>
+    
+    <div class="content">
+      <div class="original">
+        <div class="section-title">原文</div>
+        <div id="originalText" class="text-content"></div>
+        <div class="source-lang" id="sourceLanguage"></div>
+      </div>
+      
+      <div class="translation">
+        <div class="section-title">译文</div>
+        <div id="translationText" class="text-content">
+          <div class="loading">
+            <div class="spinner"></div>
+            <span>正在翻译...</span>
+          </div>
+        </div>
+        <div class="target-lang" id="targetLanguage"></div>
+      </div>
+      
+      <div class="dictionary" id="dictionary">
+        <!-- 词典内容将在这里动态显示 -->
+      </div>
+    </div>
+    
+    <div class="footer">
+      <div class="actions">
+        <button id="copyButton" class="action-button" title="复制翻译结果">复制</button>
+        <button id="switchButton" class="action-button" title="切换翻译引擎">切换引擎</button>
+      </div>
+      <div class="api-info" id="apiInfo">API: 有道翻译</div>
+    </div>
+  </div>
+  
+  <script src="js/translation.js"></script>
+</body>
+</html>

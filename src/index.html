@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TranslateX - 桌面划词翻译工具</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>TranslateX</h1>
+      <p>跨平台桌面划词翻译工具</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>使用方法</h2>
+        <ol>
+          <li>选择文本并复制 (Ctrl+C / Command+C)</li>
+          <li>按下快捷键 <kbd id="shortcutDisplay">Ctrl+Shift+T</kbd> 显示翻译</li>
+          <li>翻译结果将在弹出窗口中显示</li>
+        </ol>
+      </section>
+
+      <section class="card settings">
+        <h2>设置</h2>
+        <form id="settingsForm">
+          <div class="form-group">
+            <label for="shortcut">快捷键:</label>
+            <div class="shortcut-container">
+              <input type="text" id="shortcut" readonly placeholder="点击设置快捷键">
+              <button type="button" id="resetShortcut">重置</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="translationApi">翻译 API:</label>
+            <select id="translationApi">
+              <option value="youdao">有道翻译</option>
+              <option value="deepl">DeepL 翻译</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>API 配置:</label>
+            <div id="apiConfig">
+              <!-- 动态加载API配置表单 -->
+            </div>
+          </div>
+
+          <div class="form-group checkbox">
+            <input type="checkbox" id="autoLaunch">
+            <label for="autoLaunch">开机自启动</label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn primary">保存设置</button>
+            <button type="button" id="testTranslation" class="btn">测试翻译</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>关于</h2>
+        <p>TranslateX 是一款免费的开源划词翻译工具，支持 Windows 和 macOS 系统。</p>
+        <p>版本: <span id="appVersion">1.0.0</span></p>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 TranslateX. 基于 Electron 构建。</p>
+    </footer>
+  </div>
+
+  <!-- 测试翻译弹窗 -->
+  <div id="testTranslationModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>测试翻译</h2>
+      <div class="form-group">
+        <label for="testText">输入要翻译的文本:</label>
+        <textarea id="testText" rows="4" placeholder="在这里输入要翻译的文本"></textarea>
+      </div>
+      <button id="runTestTranslation" class="btn primary">翻译</button>
+      <div id="testResult" class="test-result">
+        <h3>翻译结果:</h3>
+        <div id="translationResult"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/renderer.js"></script>
+</body>
+</html>
