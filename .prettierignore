@@ -1,0 +1,14 @@
+node_modules
+dist
+dist_electron
+coverage
+*.min.js
+*.min.css
+public
+.git
+.DS_Store
+*.log
+*.lock
+package-lock.json
+yarn.lock 
+.eslintrc.js

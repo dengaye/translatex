@@ -11,7 +11,7 @@
         </option>
       </BaseSelect>
     </div>
-    
+
     <div class="w-48">
       <BaseSelect
         :model-value="modelValue.target"
@@ -26,32 +26,32 @@
 </template>
 
 <script setup lang="ts">
-import BaseSelect from './base/BaseSelect.vue'
+  import BaseSelect from './base/BaseSelect.vue'
 
-interface Props {
-  modelValue: {
-    source: string;
-    target: string;
+  interface Props {
+    modelValue: {
+      source: string
+      target: string
+    }
   }
-}
 
-const props = defineProps<Props>()
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: { source: string; target: string }): void
-}>()
+  const props = defineProps<Props>()
+  const emit = defineEmits<{
+    (e: 'update:modelValue', value: { source: string; target: string }): void
+  }>()
 
-const languages = [
-  { code: 'en', name: 'English' },
-  { code: 'zh', name: 'Chinese' },
-  { code: 'ja', name: 'Japanese' },
-  { code: 'ko', name: 'Korean' }
-]
+  const languages = [
+    { code: 'en', name: 'English' },
+    { code: 'zh', name: 'Chinese' },
+    { code: 'ja', name: 'Japanese' },
+    { code: 'ko', name: 'Korean' }
+  ]
 
-const handleSourceChange = (value: string) => {
-  emit('update:modelValue', { ...props.modelValue, source: value })
-}
+  const handleSourceChange = (value: string) => {
+    emit('update:modelValue', { ...props.modelValue, source: value })
+  }
 
-const handleTargetChange = (value: string) => {
-  emit('update:modelValue', { ...props.modelValue, target: value })
-}
-</script> 
+  const handleTargetChange = (value: string) => {
+    emit('update:modelValue', { ...props.modelValue, target: value })
+  }
+</script>

@@ -1,7 +1,7 @@
 import { useSettingsStore } from '@/stores/settings'
 
 interface TranslationConfig {
-  baseUrl: string;
+  baseUrl: string
 }
 
 const YOUDAO_CONFIG: TranslationConfig = {
@@ -37,7 +37,7 @@ export const translateWithYoudao = async (text: string, from: string, to: string
 
   const response = await fetch(`${YOUDAO_CONFIG.baseUrl}?${params}`)
   if (!response.ok) throw new Error('Youdao translation failed')
-  
+
   const data = await response.json()
   return data.translation[0]
 }
@@ -58,12 +58,12 @@ export const translateWithDeepL = async (text: string, from: string, to: string)
 
   const response = await fetch(`${DEEPL_CONFIG.baseUrl}?${params}`, {
     headers: {
-      'Authorization': `DeepL-Auth-Key ${deeplApiKey}`,
+      Authorization: `DeepL-Auth-Key ${deeplApiKey}`,
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   })
   if (!response.ok) throw new Error('DeepL translation failed')
-  
+
   const data = await response.json()
   return data.translations[0].text
 }
@@ -79,4 +79,4 @@ function truncate(q: string): string {
 function md5(text: string): string {
   // This is a placeholder. In production, use a proper crypto library
   return text // Replace with actual MD5 implementation
-} 
+}

@@ -39,4 +39,4 @@ const router = createRouter({
   ]
 })
 
-export default router 
+export default router

@@ -6,7 +6,7 @@ export interface ApiKey {
 }
 
 export interface TranslationService {
-  id: string
+  id: TranslationServiceIdMap
   name: string
   description: string
   apiKeys: ApiKey[]
@@ -16,9 +16,16 @@ export interface ApiKeys {
   [key: string]: string
 }
 
+export enum TranslationServiceIdMap {
+  'youdao' = 'youdao',
+  'deepl' = 'deepl'
+}
+
+export type TranslationServiceId = 'youdao' | ''
+
 export const translationServiceKeys: TranslationService[] = [
   {
-    id: 'youdao',
+    id: TranslationServiceIdMap.youdao,
     name: '有道翻译',
     description: '使用有道翻译 API 进行翻译',
     apiKeys: [
@@ -37,7 +44,7 @@ export const translationServiceKeys: TranslationService[] = [
     ]
   },
   {
-    id: 'deepl',
+    id: TranslationServiceIdMap.deepl,
     name: 'DeepL',
     description: '使用 DeepL API 进行翻译',
     apiKeys: [
@@ -49,4 +56,4 @@ export const translationServiceKeys: TranslationService[] = [
       }
     ]
   }
-] 
+]

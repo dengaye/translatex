@@ -112,7 +112,7 @@ app.on('window-all-closed', () => {
 // 注册全局快捷键
 function registerGlobalShortcut() {
   const shortcut = store.get('settings.shortcut') || 'CommandOrControl+Shift+T'
-  
+
   globalShortcut.unregisterAll()
   globalShortcut.register(shortcut, handleTranslationShortcut)
 }
@@ -145,7 +145,7 @@ ipcMain.on('update-settings', (event, settings) => {
   registerGlobalShortcut()
 })
 
-ipcMain.on('get-settings', (event) => {
+ipcMain.on('get-settings', event => {
   event.returnValue = store.get('settings')
 })
 

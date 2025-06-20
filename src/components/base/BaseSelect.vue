@@ -2,9 +2,7 @@
   <div class="relative">
     <select
       :value="modelValue"
-      class="appearance-none w-full px-4 py-2 bg-white border border-gray-300 rounded-lg 
-             text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 
-             focus:border-transparent cursor-pointer hover:bg-gray-50 transition-colors"
+      class="appearance-none w-full px-4 py-2 pr-7 bg-white border border-gray-300 rounded-lg text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer hover:bg-gray-50 transition-colors"
       @change="handleChange"
     >
       <slot></slot>
@@ -18,17 +16,17 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  modelValue: string | number;
-}
+  interface Props {
+    modelValue: string | number
+  }
 
-const props = defineProps<Props>()
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: string | number): void
-}>()
+  defineProps<Props>()
+  const emit = defineEmits<{
+    (e: 'update:modelValue', value: string | number): void
+  }>()
 
-const handleChange = (event: Event) => {
-  const target = event.target as HTMLSelectElement
-  emit('update:modelValue', target.value)
-}
-</script> 
+  const handleChange = (event: Event) => {
+    const target = event.target as HTMLSelectElement
+    emit('update:modelValue', target.value)
+  }
+</script>

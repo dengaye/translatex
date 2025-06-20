@@ -3,9 +3,9 @@
 </template>
 
 <script setup lang="ts">
-// Component logic will go here
+  // Component logic will go here
 </script>
 
 <style>
-/* Global styles */
-</style> 
+  /* Global styles */
+</style>

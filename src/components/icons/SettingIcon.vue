@@ -1,5 +1,6 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <!-- Settings gear icon -->
     <path
       stroke-linecap="round"
       stroke-linejoin="round"
@@ -10,6 +11,4 @@
   </svg>
 </template>
 
-<script setup lang="ts">
-  // 齿轮图标组件
-</script>
+<script setup lang="ts"></script>

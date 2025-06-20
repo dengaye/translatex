@@ -15,25 +15,25 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  modelValue: string;
-  placeholder?: string;
-  readonly?: boolean;
-  isLoading?: boolean;
-}
+  interface Props {
+    modelValue: string
+    placeholder?: string
+    readonly?: boolean
+    isLoading?: boolean
+  }
 
-const props = withDefaults(defineProps<Props>(), {
-  placeholder: 'Enter text...',
-  readonly: false,
-  isLoading: false
-})
+  const props = withDefaults(defineProps<Props>(), {
+    placeholder: 'Enter text...',
+    readonly: false,
+    isLoading: false
+  })
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
-}>()
+  const emit = defineEmits<{
+    (e: 'update:modelValue', value: string): void
+  }>()
 
-const handleInput = (event: Event) => {
-  const target = event.target as HTMLTextAreaElement
-  emit('update:modelValue', target.value)
-}
-</script> 
+  const handleInput = (event: Event) => {
+    const target = event.target as HTMLTextAreaElement
+    emit('update:modelValue', target.value)
+  }
+</script>

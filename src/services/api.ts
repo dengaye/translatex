@@ -25,4 +25,4 @@ export const translationApi = {
     const response = await api.post<TranslationResponse>('/translate', data)
     return response.data
   }
-} 
+}

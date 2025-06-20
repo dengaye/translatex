@@ -8,8 +8,14 @@ import './assets/main.css'
 import './assets/tailwind.css'
 
 const app = createApp(App)
+const pinia = createPinia()
 
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 
-app.mount('#app') 
+// 初始化设置store，从缓存加载数据
+import { useSettingsStore } from './stores/settings'
+const settingsStore = useSettingsStore()
+settingsStore.init()
+
+app.mount('#app')

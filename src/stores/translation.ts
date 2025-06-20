@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { translateWithYoudao, translateWithDeepL } from '@/services/translation'
+import { useSettingsStore } from './settings'
 
-type TranslationService = 'youdao' | 'deep'
+type TranslationService = 'youdao' | 'deepl'
 
 // Add type declaration for import.meta.env
 declare global {
@@ -18,7 +19,25 @@ export const useTranslationStore = defineStore('translation', () => {
   const targetLanguage = ref('en')
   const isLoading = ref(false)
   const error = ref('')
-  const translationService = ref<TranslationService>('youdao')
+
+  // 从 settings store 获取翻译服务设置
+  const settingsStore = useSettingsStore()
+  const translationService = ref<TranslationService>(settingsStore.translationService)
+
+  // 监听 settings store 中翻译服务的变化
+  watch(
+    () => settingsStore.translationService,
+    newService => {
+      translationService.value = newService
+    }
+  )
+
+  // 当翻译服务改变时，同步到 settings store
+  watch(translationService, newService => {
+    if (settingsStore.translationService !== newService) {
+      settingsStore.setTranslationService(newService)
+    }
+  })
 
   const translate = async () => {
     if (!sourceText.value) {
@@ -30,11 +49,11 @@ export const useTranslationStore = defineStore('translation', () => {
     error.value = ''
 
     try {
-      const translatedText = await (translationService.value === 'youdao'
+      const result = await (translationService.value === 'youdao'
         ? translateWithYoudao(sourceText.value, sourceLanguage.value, targetLanguage.value)
         : translateWithDeepL(sourceText.value, sourceLanguage.value, targetLanguage.value))
-      
-      translatedText.value = translatedText
+
+      translatedText.value = result
     } catch (e) {
       error.value = e instanceof Error ? e.message : 'Translation failed'
       translatedText.value = ''
@@ -53,4 +72,4 @@ export const useTranslationStore = defineStore('translation', () => {
     translationService,
     translate
   }
-}) 
+})
