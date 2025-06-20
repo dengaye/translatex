@@ -5,7 +5,7 @@ interface TranslationConfig {
 }
 
 const YOUDAO_CONFIG: TranslationConfig = {
-  baseUrl: 'https://openapi.youdao.com/api'
+  baseUrl: 'https://fanyi.youdao.com/openapi/'
 }
 
 const DEEPL_CONFIG: TranslationConfig = {

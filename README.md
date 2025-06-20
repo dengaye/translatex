@@ -25,29 +25,33 @@ TranslateX 是一款基于 Electron + Vue 3 + TypeScript 开发的跨平台桌�
 如果您想从源码构建应用，请按照以下步骤操作：
 
 1. 克隆此仓库
+
    ```bash
    git clone https://github.com/yourusername/translatex.git
    cd translatex
    ```
 
 2. 安装依赖
+
    ```bash
    yarn install
    ```
 
 3. 运行开发环境
+
    ```bash
    yarn dev:electron
    ```
 
 4. 构建应用
+
    ```bash
    # 构建所有平台
    yarn build:electron
-   
+
    # 仅构建 Windows 版本
    yarn build:win
-   
+
    # 仅构建 macOS 版本
    yarn build:mac
    ```
@@ -63,7 +67,7 @@ TranslateX 是一款基于 Electron + Vue 3 + TypeScript 开发的跨平台桌�
 
 ### 有道翻译 API
 
-1. 访问 [有道智云开放平台](https://ai.youdao.com/)
+1. 访问 [有道智云开放平台](https://ai.youdao.com/)，[接口文档](https://fanyi.youdao.com/openapi/)
 2. 注册并创建应用，获取应用 ID 和应用密钥
 3. 在 TranslateX 设置中填入应用 ID 和应用密钥
 
