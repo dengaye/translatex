@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Translation from '../views/Translation.vue'
 import SettingsLayout from '../views/settings/SettingsLayout.vue'
 import ApiKeysSettings from '../views/settings/ApiKeysSettings.vue'
 import GeneralSettings from '../views/settings/GeneralSettings.vue'
@@ -12,6 +13,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/translation',
+      name: 'translation',
+      component: Translation
     },
     {
       path: '/settings',

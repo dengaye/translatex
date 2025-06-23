@@ -23,8 +23,9 @@ function createMainWindow() {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false,
-      enableRemoteModule: true
+      contextIsolation: false
+      // enableRemoteModule is deprecated and no longer needed in newer Electron versions
+      // It's now enabled by default when nodeIntegration is true
     },
     icon: path.join(__dirname, '../assets/icons/icon.png')
   })
@@ -73,7 +74,7 @@ function createTranslationWindow() {
   const isDev = process.env.NODE_ENV === 'development'
   if (isDev) {
     // 开发环境加载Vite开发服务器
-    translationWindow.loadURL('http://localhost:5173/translation')
+    translationWindow.loadURL('http://localhost:5173/#/translation')
   } else {
     // 生产环境加载打包后的HTML文件
     translationWindow.loadFile(path.join(__dirname, '../dist/index.html'), { hash: '/translation' })
@@ -85,7 +86,7 @@ function createTranslationWindow() {
   }
 
   translationWindow.on('blur', () => {
-    translationWindow.hide()
+    translationWindow?.hide()
   })
 }
 
@@ -114,7 +115,7 @@ function registerGlobalShortcut() {
   const shortcut = store.get('settings.shortcut') || 'CommandOrControl+Shift+T'
 
   globalShortcut.unregisterAll()
-  globalShortcut.register(shortcut, handleTranslationShortcut)
+  globalShortcut.register(shortcut as string, handleTranslationShortcut)
 }
 
 // 处理翻译快捷键
@@ -129,18 +130,18 @@ async function handleTranslationShortcut() {
   const display = screen.getDisplayNearestPoint(position)
 
   // 设置翻译窗口位置
-  translationWindow.setPosition(
+  translationWindow?.setPosition(
     Math.min(position.x, display.bounds.width - 400),
     Math.min(position.y + 20, display.bounds.height - 300)
   )
 
   // 显示翻译窗口并传入文本
-  translationWindow.show()
-  translationWindow.webContents.send('translate-text', text)
+  translationWindow?.show()
+  translationWindow?.webContents.send('translate-tex  t', text)
 }
 
 // IPC 事件处理
-ipcMain.on('update-settings', (event, settings) => {
+ipcMain.on('update-settings', (_event, settings) => {
   store.set('settings', settings)
   registerGlobalShortcut()
 })
@@ -156,7 +157,7 @@ ipcMain.on('close-translation-window', () => {
 })
 
 // 添加固定翻译窗口处理
-ipcMain.on('pin-translation-window', (event, isPinned) => {
+ipcMain.on('pin-translation-window', (_event, isPinned) => {
   if (translationWindow && !translationWindow.isDestroyed()) {
     translationWindow.setAlwaysOnTop(isPinned, 'floating')
   }

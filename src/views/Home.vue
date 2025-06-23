@@ -43,6 +43,7 @@
   import { SettingIcon } from '@/components/icons'
 
   import { useTranslationStore } from '@/stores/translation'
+  import { TranslationServiceIdMap } from '@/config/translation-service-keys'
 
   // 定义组件名称以符合 Vue 多词命名规范
   defineOptions({
@@ -65,7 +66,7 @@
   }
 
   const handleServiceChange = (newValue: string) => {
-    store.translationService = newValue
+    store.translationService = newValue as TranslationServiceIdMap
     store.translate()
   }
 
