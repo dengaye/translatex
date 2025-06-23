@@ -5,7 +5,7 @@ interface TranslationConfig {
 }
 
 const YOUDAO_CONFIG: TranslationConfig = {
-  baseUrl: 'https://fanyi.youdao.com/openapi/'
+  baseUrl: 'https://openapi.youdao.com/api'
 }
 
 const DEEPL_CONFIG: TranslationConfig = {
@@ -14,7 +14,7 @@ const DEEPL_CONFIG: TranslationConfig = {
 
 export const translateWithYoudao = async (text: string, from: string, to: string) => {
   const settingsStore = useSettingsStore()
-  const { youdaoAppKey, youdaoAppSecret } = settingsStore.apiKeys
+  const { youdao_app_key: youdaoAppKey, youdao_app_secret: youdaoAppSecret } = settingsStore.apiKeys
 
   if (!youdaoAppKey || !youdaoAppSecret) {
     throw new Error('Youdao API credentials not configured')
@@ -22,7 +22,8 @@ export const translateWithYoudao = async (text: string, from: string, to: string
 
   const salt = Date.now()
   const curtime = Math.round(Date.now() / 1000)
-  const sign = md5(youdaoAppKey + truncate(text) + salt + curtime + youdaoAppSecret)
+  const input = getInput(text)
+  const sign = await sha256(youdaoAppKey + input + salt + curtime + youdaoAppSecret)
 
   const params = new URLSearchParams({
     q: text,
@@ -36,6 +37,7 @@ export const translateWithYoudao = async (text: string, from: string, to: string
   })
 
   const response = await fetch(`${YOUDAO_CONFIG.baseUrl}?${params}`)
+
   if (!response.ok) throw new Error('Youdao translation failed')
 
   const data = await response.json()
@@ -44,7 +46,7 @@ export const translateWithYoudao = async (text: string, from: string, to: string
 
 export const translateWithDeepL = async (text: string, from: string, to: string) => {
   const settingsStore = useSettingsStore()
-  const { deeplApiKey } = settingsStore.apiKeys
+  const { deepl_api_key: deeplApiKey } = settingsStore.apiKeys
 
   if (!deeplApiKey) {
     throw new Error('DeepL API key not configured')
@@ -68,15 +70,19 @@ export const translateWithDeepL = async (text: string, from: string, to: string)
   return data.translations[0].text
 }
 
-// Helper function to truncate text for Youdao API
-function truncate(q: string): string {
+// Helper function to calculate input for Youdao API signature
+function getInput(q: string): string {
   const len = q.length
   if (len <= 20) return q
   return q.substring(0, 10) + len + q.substring(len - 10, len)
 }
 
-// Simple MD5 implementation (you should use a proper crypto library in production)
-function md5(text: string): string {
-  // This is a placeholder. In production, use a proper crypto library
-  return text // Replace with actual MD5 implementation
+// SHA256 implementation using Web Crypto API
+async function sha256(text: string): Promise<string> {
+  const encoder = new TextEncoder()
+  const data = encoder.encode(text)
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data)
+  const hashArray = Array.from(new Uint8Array(hashBuffer))
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+  return hashHex
 }

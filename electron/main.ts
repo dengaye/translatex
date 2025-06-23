@@ -155,21 +155,6 @@ ipcMain.on('close-translation-window', () => {
   }
 })
 
-// 添加测试翻译处理
-ipcMain.handle('test-translation', async (event, { text, api }) => {
-  try {
-    const TranslatorService = require('../src/services/translator')
-    return await TranslatorService.translate(text, api)
-  } catch (error) {
-    console.error('测试翻译出错:', error)
-    return {
-      success: false,
-      error: error.message,
-      original: text
-    }
-  }
-})
-
 // 添加固定翻译窗口处理
 ipcMain.on('pin-translation-window', (event, isPinned) => {
   if (translationWindow && !translationWindow.isDestroyed()) {

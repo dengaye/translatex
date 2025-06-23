@@ -33,16 +33,18 @@
 </template>
 
 <script setup lang="ts">
-  import { useTranslationStore } from '@/stores/translation'
   import { ref, reactive } from 'vue'
   import { useRouter } from 'vue-router'
+
   import EmptyLayout from '@/layouts/EmptyLayout.vue'
   import LanguageSelector from '@/components/LanguageSelector.vue'
   import TranslationTextarea from '@/components/TranslationTextarea.vue'
   import TranslationServiceSelector from '@/components/TranslationServiceSelector.vue'
   import { SettingIcon } from '@/components/icons'
 
-  // 定义组件名称以符合Vue多词命名规范
+  import { useTranslationStore } from '@/stores/translation'
+
+  // 定义组件名称以符合 Vue 多词命名规范
   defineOptions({
     name: 'HomePage'
   })
@@ -63,7 +65,7 @@
   }
 
   const handleServiceChange = (newValue: string) => {
-    store.translationService = newValue as 'youdao' | 'deepl'
+    store.translationService = newValue
     store.translate()
   }
 

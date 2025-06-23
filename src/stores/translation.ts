@@ -2,15 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
 import { translateWithYoudao, translateWithDeepL } from '@/services/translation'
 import { useSettingsStore } from './settings'
-
-type TranslationService = 'youdao' | 'deepl'
-
-// Add type declaration for import.meta.env
-declare global {
-  interface ImportMetaEnv {
-    VITE_API_BASE_URL: string
-  }
-}
+import { TranslationServiceIdMap } from '@/config/translation-service-keys'
 
 export const useTranslationStore = defineStore('translation', () => {
   const sourceText = ref('')
@@ -22,7 +14,7 @@ export const useTranslationStore = defineStore('translation', () => {
 
   // 从 settings store 获取翻译服务设置
   const settingsStore = useSettingsStore()
-  const translationService = ref<TranslationService>(settingsStore.translationService)
+  const translationService = ref<TranslationServiceIdMap>(settingsStore.translationService)
 
   // 监听 settings store 中翻译服务的变化
   watch(
@@ -49,7 +41,7 @@ export const useTranslationStore = defineStore('translation', () => {
     error.value = ''
 
     try {
-      const result = await (translationService.value === 'youdao'
+      const result = await (translationService.value === TranslationServiceIdMap.youdao
         ? translateWithYoudao(sourceText.value, sourceLanguage.value, targetLanguage.value)
         : translateWithDeepL(sourceText.value, sourceLanguage.value, targetLanguage.value))
 
